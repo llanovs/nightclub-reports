@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visitors</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/styles.css}" rel="stylesheet" type="text/css" />
+</head>
+<div class="header">
+    <div class="logo">
+        <h1>Night Clubs Reports</h1>
+    </div>
+    <div id="menu">
+        <ul>
+            <div class="submit"><a href="/nightclub">Home</a></div>
+            <div class="submit"><a href="./clubs">NightClubs</a></div>
+            <div class="submit"><a href="./visitors">Visitors</a></div>
+            <div class="submit"><a href="./visits">Visits</a></div>
+            <div class="submit"><a href="./reports">Reports</a></div>
+            <div class="submit"><a href="./registration">Registration</a></div>
+        </ul>
+    </div>
+</div>
+<body>
+<h3 align="center"> Visitors</h3>
+<br/>
+<tbody>
+<table border="1" align="center" class="table">
+    <tr>
+        <td width="100"><b>Visitor Id</b></td>
+        <td width="200"><b>Visitor Name</b></td>
+    </tr>
+    <tr th:each="visitor : ${visitors}">
+        <td width="100" th:text="${visitor.visitorId}"></td>
+        <td width="200"th:text="${visitor.visitorName}"></td>
+    </tr>
+</table>
+</tbody>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reports</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/styles.css}" rel="stylesheet" type="text/css"/>
+</head>
+<div class="header">
+    <div class="logo">
+        <h1>Night Clubs Reports</h1>
+    </div>
+    <div id="menu">
+        <ul>
+            <div class="submit"><a href="/nightclub">Home</a></div>
+            <div class="submit"><a href="./clubs">NightClubs</a></div>
+            <div class="submit"><a href="./visitors">Visitors</a></div>
+            <div class="submit"><a href="./visits">Visits</a></div>
+            <div class="submit"><a href="./reports">Reports</a></div>
+            <div class="submit"><a href="./registration">Registration</a></div>
+        </ul>
+    </div>
+</div>
+<body>
+
+<td>
+    <!--    # 1-->
+    <span th:if="${session.visitorsNightClub} != null">
+        <tbody>
+        <h3 align="center">Visitors of the NightClub <span th:text="${session.data}"/></h3>
+            <table border="1" align="center" class="table">
+                <tr>
+                    <td width="100"><b>Visitor Id</b></td>
+                    <td width="200"><b>Visitor Name</b></td>
+                 </tr>
+                <tr th:each="visitor: ${session.visitorsNightClub}">
+                    <td width="100" th:text="${visitor.visitorId}"></td>
+                    <td width="200" th:text="${visitor.visitorName}"></td>
+                </tr>
+            </table>
+        </tbody>
+    </span>
+
+    <!--    # 2-->
+    <span th:if="${session.visitedNightClubs} != null">
+        <tbody>
+            <h3 align="center">Visited NightСlubs by <span th:text="${session.data}"/></h3>
+            <table border="1" align="center" class="table">
+                <tr>
+                    <td width="100"><b>NightClub Id</b></td>
+                    <td width="200"><b>NightClub Name</b></td>
+                </tr>
+               <tr th:each="nightClub: ${session.visitedNightClubs}">
+                    <td width="100" th:text="${nightClub.nightClubId}"></td>
+                    <td width="200" th:text="${nightClub.nightClubName}"></td>
+                </tr>
+            </table>
+        </tbody>
+    </span>
+
+    <!--    # 3-->
+    <span th:if="${session.notVisitedNightClubs} != null">
+        <tbody>
+            <h3 align="center">Not Visited NightСlubs by <span th:text="${session.data}"/></h3>
+            <table border="1" align="center" class="table">
+               <tr>
+                   <td width="100"><b>NightClub Id</b></td>
+                   <td width="200"><b>NightClub Name</b></td>
+                </tr>
+               <tr th:each="nightClub: ${session.notVisitedNightClubs}">
+                    <td width="100" th:text="${nightClub.nightClubId}"></td>
+                    <td width="200" th:text="${nightClub.nightClubName}"></td>
+                </tr>
+            </table>
+        </tbody>
+    </span>
+</td>
+
+</body>
+</html>
