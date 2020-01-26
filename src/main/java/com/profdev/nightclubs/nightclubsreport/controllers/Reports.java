@@ -1,5 +1,7 @@
 package com.profdev.nightclubs.nightclubsreport.controllers;
 
+import com.profdev.nightclubs.nightclubsreport.models.NightClubs;
+import com.profdev.nightclubs.nightclubsreport.models.Visitors;
 import com.profdev.nightclubs.nightclubsreport.service.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/reports")
@@ -28,11 +31,25 @@ public class Reports{
             session.setAttribute("dataId", reportId);
             session.setAttribute("data", data);
             if(reportId == 1){
-                session.setAttribute("visitorsNightClub", service.getVisitorsByNightClubName(data));
+                List<Visitors> list = service.getVisitorsByNightClubName(data);
+                if(list.size() > 0)
+                    session.setAttribute("visitorsNightClub", list);
+                else
+                    session.setAttribute("dataId", 4);
             }else if(reportId == 2){
-                session.setAttribute("visitedNightClubs", service.getVisitedNightClubs(data));
+                List<NightClubs> list = service.getVisitedNightClubs(data);
+                if(list.size() > 0)
+                   session.setAttribute("visitedNightClubs", list);
+                else
+                    session.setAttribute("dataId", 4);
             } else {
-                session.setAttribute("notVisitedNightClubs", service.getNotVisitedNightClubs(data));
+                List<NightClubs> list = service.getNotVisitedNightClubs(data);
+                if(list == null)
+                    session.setAttribute("dataId", 0);
+                else if(list.size() > 0)
+                    session.setAttribute("notVisitedNightClubs", list);
+                else
+                    session.setAttribute("dataId", 4);
             }
         } else {
             session.setAttribute("dataId", 0);
