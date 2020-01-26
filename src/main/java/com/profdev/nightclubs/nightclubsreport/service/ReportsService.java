@@ -35,13 +35,16 @@ public class ReportsService implements ReportsServiceDao {
 
     @Override
     public List<NightClubs> getNotVisitedNightClubs(String visitorName) {
-        List<NightClubs> allNightClubs = nightClubService.getAllNightClubs();
-        List<NightClubs> visited = getVisitedNightClubs(visitorName);
-        List<NightClubs> notVisited = new ArrayList<>();
-        for (NightClubs nightClub : allNightClubs) {
-            if (!visited.contains(nightClub))
-                notVisited.add(nightClub);
+        if(visitorsService.getVisitorByName(visitorName) != null) {
+            List<NightClubs> allNightClubs = nightClubService.getAllNightClubs();
+            List<NightClubs> visited = getVisitedNightClubs(visitorName);
+            List<NightClubs> notVisited = new ArrayList<>();
+            for (NightClubs nightClub : allNightClubs) {
+                if (!visited.contains(nightClub))
+                    notVisited.add(nightClub);
+            }
+            return notVisited;
         }
-        return notVisited;
+        return null;
     }
 }
