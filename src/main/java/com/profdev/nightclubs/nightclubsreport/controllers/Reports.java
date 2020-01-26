@@ -1,7 +1,5 @@
 package com.profdev.nightclubs.nightclubsreport.controllers;
 
-import com.profdev.nightclubs.nightclubsreport.models.NightClubs;
-import com.profdev.nightclubs.nightclubsreport.models.Visitors;
 import com.profdev.nightclubs.nightclubsreport.service.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -10,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/reports")
@@ -28,8 +23,8 @@ public class Reports{
     @PostMapping
     public ModelAndView createReport(HttpSession session, @Nullable @RequestParam("reportId") int reportId,
                                @RequestParam("data") String data) {
-        if (reportId != 0) {
-            resetReportsData(session);
+        resetReportsData(session);
+        if (!data.isEmpty()) {
             session.setAttribute("dataId", reportId);
             session.setAttribute("data", data);
             if(reportId == 1){
@@ -39,6 +34,8 @@ public class Reports{
             } else {
                 session.setAttribute("notVisitedNightClubs", service.getNotVisitedNightClubs(data));
             }
+        } else {
+            session.setAttribute("dataId", 0);
         }
         return new ModelAndView("reports");
     }
@@ -47,7 +44,6 @@ public class Reports{
         session.setAttribute("visitorsNightClub", null);
         session.setAttribute("notVisitedNightClubs", null);
         session.setAttribute("visitedNightClubs", null);
-        session.setAttribute("dataId", null);
         session.setAttribute("data", null);
     }
 }
