@@ -21,10 +21,12 @@
     </div>
 </div>
 <body>
-
-<td>
+<div th:switch="${session.dataId}">
+    <span th:case="0">
+        <h3 align="center">Wrong data</h3>
+    </span>
     <!--    # 1-->
-    <span th:if="${session.visitorsNightClub} != null">
+    <span th:case="1">
         <tbody>
         <h3 align="center">Visitors of the NightClub <span th:text="${session.data}"/></h3>
             <table border="1" align="center" class="table">
@@ -39,9 +41,8 @@
             </table>
         </tbody>
     </span>
-
-    <!--    # 2-->
-    <span th:if="${session.visitedNightClubs} != null">
+    <!--    # 2 -->
+    <span th:case="2">
         <tbody>
             <h3 align="center">Visited NightСlubs by <span th:text="${session.data}"/></h3>
             <table border="1" align="center" class="table">
@@ -56,9 +57,8 @@
             </table>
         </tbody>
     </span>
-
     <!--    # 3-->
-    <span th:if="${session.notVisitedNightClubs} != null">
+    <span th:case="3">
         <tbody>
             <h3 align="center">Not Visited NightСlubs by <span th:text="${session.data}"/></h3>
             <table border="1" align="center" class="table">
@@ -73,7 +73,6 @@
             </table>
         </tbody>
     </span>
-</td>
-
+</div>
 </body>
 </html>
